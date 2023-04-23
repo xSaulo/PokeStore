@@ -1,9 +1,7 @@
 package com.poke.controller;
 
-
-import com.poke_dom.Categoria;
-import com.poke_serv.CategoriaService;
-import java.util.Arrays;
+import com.poke.domain.Categoria;
+import com.poke.service.ICategoriaService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/categoria")
+@Slf4j
+@RequestMapping("/admin/categoria")
 public class CategoriaController {
 
     @Autowired
-    private CategoriaService categoriaService;
+    private ICategoriaService categoriaService;
 
     @GetMapping("/listado")
     public String inicio(Model model) {
@@ -28,24 +27,26 @@ public class CategoriaController {
     }
 
     @GetMapping("/nuevo")
-    public String categoriaNuevo(Model model, Categoria categoria) {
+    public String categoriaNuevo(Categoria categoria) {
+
         return "/categoria/modifica";
     }
 
     @PostMapping("/guardar")
     public String categoriaGuardar(Categoria categoria) {
         categoriaService.save(categoria);
-        return "redirect:/categoria/listado";
+        return "redirect:/admin/categoria/listado";
     }
 
     @GetMapping("/eliminar/{idCategoria}")
-    public String categoriaEliminar(Model model, Categoria categoria) {
+    public String categoriaEliminar(Categoria categoria) {
         categoriaService.delete(categoria);
-        return "redirect:/categoria/listado";
+        return "redirect:/admin/categoria/listado ";
     }
+
     @GetMapping("/modificar/{idCategoria}")
     public String categoriaModificar(Categoria categoria, Model model) {
-        categoria=categoriaService.getCategoria(categoria);
+        categoria = categoriaService.getCategoria(categoria);
         model.addAttribute("categoria", categoria);
         return "/categoria/modifica";
     }

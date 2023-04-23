@@ -1,8 +1,7 @@
 package com.poke.controller;
 
-import com.poke_dom.Articulo;
-import com.poke_serv.ArticuloService;
-import java.util.Arrays;
+import com.poke.domain.Articulo;
+import com.poke.service.IArticuloService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,11 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/articulo")
+@Slf4j
+@RequestMapping("/admin/articulo")
 public class ArticuloController {
 
     @Autowired
-    private ArticuloService articuloService;
+    private IArticuloService articuloService;
 
     @GetMapping("/listado")
     public String inicio(Model model) {
@@ -27,24 +27,26 @@ public class ArticuloController {
     }
 
     @GetMapping("/nuevo")
-    public String articuloNuevo(Model model, Articulo articulo) {
+    public String articuloNuevo(Articulo articulo) {
+
         return "/articulo/modifica";
     }
 
     @PostMapping("/guardar")
     public String articuloGuardar(Articulo articulo) {
         articuloService.save(articulo);
-        return "redirect:/articulo/listado";
+        return "redirect:/admin/articulo/listado";
     }
 
     @GetMapping("/eliminar/{idArticulo}")
-    public String articuloEliminar(Model model, Articulo articulo) {
+    public String articuloEliminar(Articulo articulo) {
         articuloService.delete(articulo);
-        return "redirect:/articulo/listado";
+        return "redirect:/admin/articulo/listado ";
     }
+
     @GetMapping("/modificar/{idArticulo}")
     public String articuloModificar(Articulo articulo, Model model) {
-        articulo=articuloService.getArticulo(articulo);
+        articulo = articuloService.getArticulo(articulo);
         model.addAttribute("articulo", articulo);
         return "/articulo/modifica";
     }
