@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmnls="http://w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <head th:replace="~{layout/plantilla :: head}">
+        <meta charset="UTF-8"/>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+
+    <!-- Boton agregar MODAL-->
+    <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">   
+                    <button 
+                        type="button" 
+                        class="btn btn-primary btn-block" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#agregarArticulo">
+                        <i class="fas fa-plus"></i> Agregar Articulo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AGREGAR -->
+    <section th:fragment="agregarArticulo">
+        <div id="agregarArticulo">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-white">
+                        <h5 th:text="#{articulo.titulo}" class="modal-title">Agregar Articulo</h5>
+                    </div> 
+                    <form th:action="@{/admin/articulo/guardar}" th:object="${articulo}"
+                          method="POST" class="was-validated">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label th:text="#{admin.descripcion}" for="descripcion">Descripcion</label>
+                                <input type="text" class="form-control" name="descripcion" required="true">
+                            </div>
+                            <div class="mb-3">
+                                <label th:text="#{articulo.detalle}" for="detalle">Detalle</label>
+                                <input type="text" class="form-control" name="detalle" required="true">
+                            </div>
+                            <div class="mb-3">
+                                <label th:text="#{articulo.precio}" for="precio">Precio</label>
+                                <input type="number" class="form-control" name="precio" required="true">
+                            </div>
+                            <div class="mb-3">
+                                <label th:text="#{articulo.existencias}" for="existencias">Existencias</label>
+                                <input type="number" class="form-control" name="existencias" required="true">
+                            </div>
+                            <div class="mb-3">
+                                <label th:text="#{articulo.imagen}" for="imagen">Imagen</label>
+                                <input type="text" class="form-control" name="imagen" required="true">
+                            </div>
+                            <div class="mb-3">
+                                <label th:text="#{admin.activo}" for="activo">Activo</label>
+                                <input type="number" class="form-control" name="activo" required="true">
+                            </div>
+                            <div class="mb-3">
+                                <label th:text="#{articulo.categoria}" for="categoria">Categoria</label>
+                                <input type="number" class="form-control" name="categoria" required="true">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button th:text="#{admin.boton}" class="btn btn-primary" type="submit">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MOSTRAR -->
+    <section th:fragment="listadoArticulos" id="articulos">
+        <div class="listadoArticulos">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 th:text="#{articuloL.titulo}">Listado de Articulo</h4></div>
+                        <div th:if="${articulos != null and !articulos.empty}">
+                            <table class="table table-striped table-hover">
+                                <thead class="table-dark">
+                                    <tr><th>#</th>
+                                        <th th:text="#{admin.descripcion}">Descripcion</th>
+                                        <th th:text="#{articulo.detalle}">Detalle</th>
+                                        <th th:text="#{articulo.precio}">Precio</th>
+                                        <th th:text="#{articulo.existencias}">Existencias</th>
+                                        <th th:text="#{articulo.imagen}">Imagen</th>
+                                        <th th:text="#{admin.activo}">Activo</th>
+                                        <th th:text="#{articulo.categoria}">Categoria</th>
+                                        <th></th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="articulo: ${articulos}">
+                                        <td>[[${articulo.idArticulo}]]</td>
+                                        <td>[[${articulo.descripcion}]]</td>
+                                        <td>[[${articulo.detalle}]]</td>
+                                        <td>[[${articulo.precio}]]</td>
+                                        <td>[[${articulo.existencias}]]</td>
+                                        <td>[[${articulo.imagen}]]</td>
+                                        <td>[[${articulo.activo}]]</td>
+                                        <td th:text="${articulo.categoria != null} ? ${articulo.categoria.descripcion} : ''"></td>
+
+                                        <td><a th:text="#{admin.eliminar}" th:href="@{/admin/articulo/eliminar/}+${articulo.idArticulo}"
+                                               class="btn btn-danger">
+                                                <i class="fas fa-trash"></i> Eliminar</a>
+                                            <a th:text="#{admin.modificar}" th:href="@{/admin/articulo/modificar/}+${articulo.idArticulo}"
+                                               class="btn btn-success">
+                                                <i class="fas fa-pencil"></i> Modificar</a></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center p-2" th:if="${articulos == null or articulos.empty}">
+                            <span>Lista vacía</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- MODIFICAR -->
+    <section th:fragment="editarArticulo">
+
+        <div class="row">
+            <div class="col-md-8">
+                <form method="POST"
+                      th:action="@{/admin/articulo/guardar}" th:object="${articulo}"
+                      class="was-validated">
+                    <input type="hidden" name="idArticulo" th:field="*{idArticulo}"/>
+                    <div id=details>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 th:text="#{articuloM.titulo}">Actualizar</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <label th:text="#{admin.descripcion}" for="descripcion">Descripcion</label>
+                                            <input type="text" class="form-control" 
+                                                   name="descripcion" th:field="*{descripcion}"
+                                                   required="true">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label th:text="#{articulo.detalle}" for="detalle">Detalle</label>
+                                            <input type="text" class="form-control" 
+                                                   name="detalle" th:field="*{detalle}"
+                                                   required="true">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label th:text="#{articulo.precio}" for="precio">Precio</label>
+                                            <input type="number" class="form-control" 
+                                                   name="precio" th:field="*{precio}"
+                                                   required="true">
+                                        </div> 
+                                        <div class="mb-3">
+                                            <label th:text="#{articulo.existencias}" for="existencias">Existencias</label>
+                                            <input type="number" class="form-control" 
+                                                   name="existencias" th:field="*{existencias}"
+                                                   required="true">
+                                        </div> 
+                                        <div class="mb-3">
+                                            <label th:text="#{articulo.imagen}" for="imagen">Imagen</label>
+                                            <input type="text" class="form-control" 
+                                                   name="imagen" th:field="*{imagen}"
+                                                   required="true">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label th:text="#{admin.activo}" for="activo">Activo</label>
+                                            <input type="number" class="form-control" 
+                                                   name="activo" th:field="*{activo}"
+                                                   required="true">
+                                        </div> 
+
+                                        <div class="mb-3">
+                                            <label th:text="#{articulo.categoria}" for="categoria">Categoria</label>
+                                            <input type="number" class="form-control" 
+                                                   name="categoria" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <section th:replace="~{articulo/fragmentos :: botonesEditar}"/>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODIFICAR/BOTON -->
+    <section th:fragment="botonesEditar">
+
+        <div class="row">
+            <div class="col-md-4 d-grid">
+                <a th:text="#{admin.regresar}" th:href="@{/admin/articulo/listado}" class="btn btn-primary">
+                    <i class="fas fa-arrow-left"></i> Regresar
+                </a>
+            </div>
+            <div class="col-md-4 d-grid">                                
+                <a th:text="#{admin.eliminar}" th:href="@{/admin/articulo/eliminar/}+${articulo.idArticulo}"
+                   class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Eliminar
+                </a>
+            </div>
+            <div class="col-md-4 d-grid">
+                <button th:text="#{admin.boton}" type="submit" class="btn btn-success">
+                    <i class="fas fa-check"></i> Guardar
+                </button>
+            </div>
+        </div>
+
+    </section>
+</body>
+</html>
