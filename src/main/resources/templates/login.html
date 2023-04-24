@@ -2,14 +2,12 @@
 
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://thymeleaft.org/extras/spring-security">
-    <head th:replace="~{layout/plantilla :: head}">
-        <link href="/css/registro.css" rel="stylesheet" type="text/css"/>
-        
-    </head>
+    <head th:replace="~{layout/plantilla :: head}"></head>
+    <link href="/css/login.css" rel="stylesheet" type="text/css"/>
     <body>
         <header th:replace="~{layout/plantilla :: header}"/>
 
-        <section class="vh-100 gradient-custom">
+        <section class="form">
 
             <div class="container mt-5">
                 <div style="width:600px;margin-left: auto;margin-right: auto;padding: 24px;">
@@ -26,24 +24,24 @@
                                     </div>-->
            
                                     <!-- Login Controls -->
-                                    <div >
-                                        <label class="controls"th:text="#{cliente.correo}" for="txtUsername">Username</label>
-                                        <input type="text" class="controls" id="username" name="username"
+                                    <div class="form-group">
+                                        <label th:text="#{cliente.correo}" for="txtUsername">Username</label>
+                                        <input type="text" class="form-control" id="username" name="username"
                                                placeholder="Username" required>
                                     </div>
-                                    <div >
+                                    <div class="form-group">
                                         <label th:text="#{admin.contra}" for="txtPassword">Password</label>
-                                        <input type="password" class="controls" id="password" name="password"
+                                        <input type="password" class="form-control" id="password" name="password"
                                                placeholder="Password" required>
                                     </div>
                                     <!-- Login Button -->
-                                    <div  style="margin-top: 12px;">
-                                        <button th:text="#{login.boton}" type="submit" class="botons">Log in</button>
+                                    <div class="form-actions" style="margin-top: 12px;">
+                                        <button th:text="#{login.boton}" type="submit" class="btn btn-success">Log in</button>
                                     </div>
                                 </fieldset>
                             </form>
 
-                            <a th:text="#{plantilla.registrarse}" class="btn-outline-dark" href="/registro/cliente/registro" role="button">Registrarse</a>
+                            <a th:text="#{plantilla.registrarse}" class="mt-5" href="/registro/cliente/registro" role="button">Registrarse</a>
                         </div>
                     </div>
                 </div>

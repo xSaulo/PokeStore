@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <section th:fragment="articulo">
+            <img th:src="${articulo.imagen}" height="400"/><br/>
+            <div class="container">
+                <div th:if="${articulo != null}">
+                    <h2 class="title" th:text="${articulo.categoria != null} ? ${articulo.categoria.descripcion + ' - ' + articulo.descripcion} : ${articulo.descripcion}"></h2>
+                    <p class="description" th:text="${articulo.detalle}"></p>
+                    <p class="price" th:text="${articulo.precio}"></p>
+                    <p class="detail" th:text="${articulo.existencias}"></p>
+
+                    <div class="col-md-4 d-grid">                                
+                        <a th:href="@{/carrito/agregar/}+${articulo.idArticulo}"
+                           class="btn btn-danger">
+                            <button th:text="#{producto.boton}"></button>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="text-center p-2" th:if="${articulo == null}">
+                    <span>Artículo no encontrado</span>
+                </div>
+            </div>
+        </section>
+
+
+        <!--        <section th:fragment="articulo">
+                    <h1 class="title">Catalogo de cartas</h1>
+                    <div class="container">
+                        <th:block th:each="products : ${articulo}">
+                            <div class="card">
+                                <img th:src="${products.getImagen}" alt="" height="400"/>
+                                <h4 th:text="${products.getDescripcion}"></h4>
+                                <h4 th:text="${products.getDetalle}">Carta de Pikachu</h4>
+                            </div>
+                        </th:block>
+                </section>-->
+
+    </body>
+</html>

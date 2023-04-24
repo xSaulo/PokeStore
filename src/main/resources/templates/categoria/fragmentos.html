@@ -3,17 +3,20 @@
       xmlns:th="http://thymeleaf.org">
     <head th:replace="~{layout/plantilla :: head}">
         <link href="css/registro.css" rel="stylesheet" type="text/css"/>
+               <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <meta charset="UTF-8"/>
     </head>
 
     <!-- Boton agregar MODAL-->
-    <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
+    <section th:fragment="botonesAgregar" class="btn-primary">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">   
                     <button 
                         type="button" 
-                        class="btn btn-primary btn-block" 
+                        class="btn btn-primary" 
                         data-bs-toggle="modal" 
                         data-bs-target="#agregarCategoria">
                         <i class="fas fa-plus"></i> Agregar Categoria
@@ -29,7 +32,7 @@
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
                     <div class="modal-header bg-info text-white">
-                        <h5 th:text="#{categoria.titulo}" class="modal-title">Agregar Categoria</h5>
+                        <h5 th:text="#{categoria.titulo}" class="btn-primary">Agregar Categoria</h5>
                     </div> 
                     <form th:action="@{/admin/categoria/guardar}" th:object="${categoria}"
                           method="POST" class="was-validated">

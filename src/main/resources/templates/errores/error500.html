@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Error 500 - Error interno</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+
+        <header th:replace="~{layout/plantilla :: header}"/>
+        <h1 class="title">Error 404</h1>
+        <p class="message">¡Lo siento! Error interno.</p>
+        <a href="/" class="button">Volver al inicio</a>
+        <img src="/img/pikasad.webp" alt="Charmander" class="charmander" height="75%">
+
+        <footer th:replace="~{layout/plantilla :: footer}"/>
+
+    </body>
+</html>

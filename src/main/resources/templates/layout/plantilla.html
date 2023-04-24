@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://thymeleaft.org/extras/spring-security">
+    <head th:fragment="head">
+        <title>PokeStore</title>
+        <meta charset="UTF-8"/>
+        <link href="/css/styles.css" rel="stylesheet" type="text/css"/>
+        <script th:src="@{webjars/jquery/jquery.min.js}"></script>
+        <script th:src="@{webjars/popper.js/umd/popper.min.js}"></script>
+        <script th:src="@{webjars/bootstrap/js/bootstrap.min.js}"></script>
+        <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+        <link href="/css/noticias.css" rel="stylesheet" type="text/css"/>
+        <link href="/css/foro.css" rel="stylesheet" type="text/css"/>
+        <link href="/css/registro.css" rel="stylesheet" type="text/css"/>
+        <link href="css/footer.css" rel="stylesheet" type="text/css"/>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+
+    <body>
+        <link href="/css/registro.css" rel="stylesheet" type="text/css"/>
+        <header th:fragment="header" class="header">
+            <a href="/">
+                <img src="/img/logo.JPG" alt="logo" class="logo"/>
+            </a>
+
+            <nav>
+                <ul class="nav_links">
+                    <li> <a th:text="#{plantilla.inicio}" href="/"> Inicio  </li> </a>
+
+                    <li> <a th:text="#{plantilla.tienda}" href="/tienda"> Tienda  </li> </a>
+
+                    <li sec:authorize="hasRole('ADMIN') or hasRole('CLIENTE')" class="nav-item">
+                        <a class="nav-link" th:href="@{/foro}">Foro</a>
+                    </li>
+
+
+                    <li> <a th:text="#{plantilla.noticias}" href="/noticias"> Noticias  </li> </a>
+
+                    <li sec:authorize="hasRole('ADMIN') or hasRole('CLIENTE')" class="nav-item">
+                        <a id="carritoC" th:text="#{plantilla.carrito}" class="nav-link" href="/carrito/listado">Carrito</a>
+                    </li>
+
+                    <li> <a th:text="#{plantilla.curiosidades}" href="/curiosidades"> Curiosidades  </li> </a>
+
+                    <li> <a th:text="#{plantilla.ayuda}" href="/ayuda"> Ayuda  </li> </a>
+
+                    <li sec:authorize="not isAuthenticated()" class="nav-item">
+                        <a th:text="#{plantilla.iniciar_sesion}" class="nav-link" th:href="@{/login}">Iniciar Sesion</a>
+                    </li>
+
+                    <li sec:authorize="not isAuthenticated()" class="nav-item">
+                        <a th:text="#{plantilla.registrarse}" class="nav-link" th:href="@{/registro/cliente/registro}">Registrarse</a>
+                    </li>
+
+                    <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                        <a th:text="#{plantilla.panel}" class="nav-link" href="/admin/cliente/listado">Panel Administrador</a>
+                    </li>
+
+                    <li>
+                        <form method="POST" th:action="@{/logout}" style="display:inline">
+                            <a th:text="#{plantilla.cerrar_sesion}" sec:authorize="isAuthenticated()" href="#" 
+                               onclick="this.parentNode.submit();">Logout</a>
+                        </form>
+                    </li>
+
+                </ul>
+            </nav>
+        </header>
+
+        <section th:fragment="bienvenida"> 
+            <h1 th:text="#{plantilla.bienvenida}" class="bienvenido"> Bienvenido!</h1> 
+            <p th:text="#{plantilla.info}" class="contenido ">PokeStore es una tienda online que ofrece cartas y funko pops de pokemon, ademas de ofrecer diferentes secciones con contenido de la saga Pokemon como por ejemplo curiosidades y noticias.
+                En caso de requerir ayuda
+                para comprar cartas puede dirigirse a la s
+                eccion de ayuda la cual muestra paso a paso como comprar las cartas.</p> 
+        </section>
+
+        <section th:fragment="botonPika" > 
+            <button class="btn-primary"><a class="btn-primary"th:text="#{plantilla.bComprar}" href="tienda">Compra cartas</button>
+            <img  src="img/PIKACHU.jpg" alt="pikachu" height="100" />
+        </section>
+
+        <section th:fragment="cartas">
+            <h1 th:text="#{plantilla.catalogo}" class="title">Catalogo de cartas</h1>
+            <div class="container">
+                <th:block th:each="products : ${productos}">
+                    <div class="card">
+                        <img th:src="${products.getImagen}" alt="" height="400"/>
+                        <h4 th:text="${products.getDescripcion}"></h4>
+                        <h4 th:text="${products.getDetalle}"></h4>
+                        <a th:text="#{plantilla.leermas}" th:href="@{'/tienda/producto/' + ${products.idArticulo}}" >Leer más</a>
+                    </div>
+                </th:block>
+            </div>
+
+        </section>
+        <section>
+  <footer class="section footer-classic context-dark bg-image" style="background: #2d3246;">
+        <div >
+          <div class="row row-30">
+            <div >
+              <div class="pr-xl-4"><a class="brand" href="index.html"><img class="brand-logo-light" src="http://localhost/img/logo.JPG" alt="" width="140" height="37" srcset="images/agency/logo-retina-inverse-280x74.png 2x"></a>
+               
+                <!-- Rights-->
+                <p class="rights"><span>©  </span><span class="copyright-year">2018</span><span> </span><span>Waves</span><span>. </span><span>All Rights Reserved.</span></p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <h5>Contacts</h5>
+              <dl class="contact-list">
+                <dt>Address:</dt>
+                <dd>600m norte de las Ruinas de Cartago</dd>
+              </dl>
+              <dl class="contact-list">
+                <dt>email:</dt>
+                <dd><a href="mailto:#">PokeStore@gmail.com</a></dd>
+              </dl>
+              <dl class="contact-list">
+                <dt>phones:</dt>
+                <dd><a href="tel:8765-9087">https://karosearch.com</a> <span>or</span> <a href="tel:#">https://karosearch.com</a>
+                </dd>
+              </dl>
+            </div>
+            <div class="col-md-4 col-xl-3">
+              <h5>Links</h5>
+              <ul class="nav-list">
+                <li><a href="#">IEE</a></li>
+               <li class="nav-item"> 
+                <a class="nav-link" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
+                   th:href="${urlBuilder.replaceQueryParam('lang','en').toUriString()}">EN</a>
+  <li class="nav-item"> 
+                <a class="nav-link" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
+                   th:href="${urlBuilder.replaceQueryParam('lang','es').toUriString()}">ES</a>
+            </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row no-gutters social-container">
+          <div class="col"><a class="social-inner" href="#"><span class="icon mdi mdi-facebook"></span><span>Facebook</span></a></div>
+          <div class="col"><a class="social-inner" href="#"><span class="icon mdi mdi-instagram"></span><span>instagram</span></a></div>
+          <div class="col"><a class="social-inner" href="#"><span class="icon mdi mdi-twitter"></span><span>twitter</span></a></div>
+          <div class="col"><a class="social-inner" href="#"><span class="icon mdi mdi-youtube-play"></span><span>google</span></a></div>
+        </div>
+      </footer>
+            </section>
+    </body>
+
+
+
+</html>

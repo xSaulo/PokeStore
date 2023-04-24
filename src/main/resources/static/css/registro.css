@@ -5,7 +5,7 @@
 }
 
 body {
-  background-image: url('fondo.jpg');
+  background-image: #24303c;
 }
 
 .form-register {
@@ -54,7 +54,7 @@ body {
   text-decoration: underline;
 }
 
-.form-register .botons {
+.botons {
   width: 100%;
   background: #1f53c5;
   border: none;

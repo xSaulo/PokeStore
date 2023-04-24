@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head th:replace="~{layout/plantilla :: head}"></head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <body>
         <header th:replace="~{layout/plantilla :: header}"/>
         <div class="container">
@@ -25,11 +28,11 @@
                         <span th:if="${user.getCalificacionComentario() == 4}">⭐⭐⭐⭐</span>
                         <span th:if="${user.getCalificacionComentario() == 5}">⭐⭐⭐⭐⭐</span>
                     </p>
-                    <a class="fas fa-edit float-right" th:href="@{/editarComentario/{id}(id=${user.IdComentario})}"></a>
-                    <a class="fas fa-trash float-right" th:href="@{/eliminarComentario/{id}(id=${user.IdComentario})}"></a>
+                    <button class="btn-primary"><a  class="fas fa-edit" th:href="@{/editarComentario/{id}(id=${user.IdComentario})}"></a>Editar</button>
+                    <button class="btn-danger"><a class="fas fa-trash float-right" th:href="@{/eliminarComentario/{id}(id=${user.IdComentario})}"></a>Eliminar</button>
                 
             </div>
-            <a th:text="#{comentarios.boton}" class="btn btn-outline-dark" href="/crearForo" role="button">Agregar Comentario</a>
+            <a th:text="#{comentarios.boton}" class="btn btn-outline-dark" href="/crearForo" >Agregar Comentario</a>
         </div>
 
         <footer th:replace="~{layout/plantilla :: footer}"/>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Error 404 - Página no encontrada</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+
+        <header th:replace="~{layout/plantilla :: header}"/>
+        <h1 class="title">Error 404</h1>
+        <p th:text="#{e404.texto}" class="message">¡Lo siento! La página que estás buscando no existe.</p>
+        <a th:text="#{error.volver}" href="/" class="button">Volver al inicio</a>
+        <img src="/img/pikasad.webp" alt="Charmander" class="charmander" height="75%">
+
+        <footer th:replace="~{layout/plantilla :: footer}"/>
+
+    </body>
+</html>

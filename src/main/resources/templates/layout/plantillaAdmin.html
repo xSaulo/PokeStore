@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://thymeleaft.org/extras/spring-security">
+    <head th:fragment="head">
+        <title>PokeStore</title>
+        <meta charset="UTF-8"/>
+        <link href="/css/styles.css" rel="stylesheet" type="text/css"/>
+              <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+        <link href="/css/noticias.css" rel="stylesheet" type="text/css"/>
+        <link href="/css/foro.css" rel="stylesheet" type="text/css"/>
+
+    </head>
+
+    <body>
+        <header th:fragment="header" class="header">
+            <a href="/">
+                <img src="/img/logo.JPG" alt="logo" class="logo"/>
+            </a>
+
+            <nav>
+                <ul class="nav_links">
+                    <!--<li> <a href="/admin/admin/listado"> Admin Panel  </li> </a>-->
+                    <li> <a  th:text="#{plantillaAdmin.cliente}" href="/admin/cliente/listado"> Cliente Panel  </li> </a>
+                    <li> <a th:text="#{plantillaAdmin.articulo}" href="/admin/articulo/listado"> Articulo Panel  </li> </a>
+                    <li> <a th:text="#{plantillaAdmin.categoria}" href="/admin/categoria/listado"> Categoria Panel  </li> </a>
+                    <!--<li> <a th:text="#{plantillaAdmin.comentarios}" href="/admin/comentario/listado"> Comentarios Panel  </li> </a>-->
+                    <li> <a th:text="#{plantillaAdmin.ayuda}" href="/admin/ayuda"> Ayuda  </li> </a>
+                    <li>
+                        <form method="POST" th:action="@{/logout}" style="display:inline">
+                            <a th:text="#{plantillaAdmin.cerrar_sesion}" sec:authorize="isAuthenticated()" href="#" 
+                               onclick="this.parentNode.submit();">Logout</a>
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+    </body>
+
+    <footer th:fragment="footer" id="piepagina" class="bg-info text-white mt-5 p-2">
+        <li class="nav-item"> 
+            <a class="nav-link" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
+               th:href="${urlBuilder.replaceQueryParam('lang','es').toUriString()}">ES</a>
+        </li>
+        <li class="nav-item"> 
+            <a class="nav-link" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
+               th:href="${urlBuilder.replaceQueryParam('lang','en').toUriString()}">EN</a>
+        </li>
+        [[#{plantilla.copy}]]&COPY; 2023<address>[[#{plantilla.telefono}]]:8878-9045</address>
+    </footer>
+
+</html>

@@ -34,7 +34,7 @@
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
                     <div class="modal-header bg-info text-white">
-                        <h5 th:text="#{articulo.titulo}" class="modal-title">Agregar Articulo</h5>
+                        <h5 th:text="#{articulo.titulo}" class="btn-primary">Agregar Articulo</h5>
                     </div> 
                     <form th:action="@{/admin/articulo/guardar}" th:object="${articulo}"
                           method="POST" class="was-validated">
