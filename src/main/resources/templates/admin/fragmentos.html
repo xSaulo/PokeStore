@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmnls="http://w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+    <head th:replace="~{layout/plantilla :: head}">
+        <meta charset="UTF-8"/>
+    </head>
+
+    <!-- Boton agregar MODAL-->
+    <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">   
+                    <button 
+                        type="button" 
+                        class="btn btn-primary btn-block" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#agregarAdmin">
+                        <i class="fas fa-plus"></i> Agregar Admin
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AGREGAR -->
+    <section th:fragment="agregarAdmin">
+        <div id="agregarAdmin">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-white">
+                        <h5 class="modal-title">Agregar Admin</h5>
+                    </div> 
+                    <form th:action="@{/admin/admin/guardar}" th:object="${admin}"
+                          method="POST" class="was-validated">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="usuario">Usuario</label>
+                                <input type="text" class="form-control" name="usuario" required="true">
+                            </div>
+                            <div class="mb-3">
+                                <label for="contrasena">Contraseña</label>
+                                <input type="text" class="form-control" name="contrasena" required="true">
+                            </div>
+                            <div class="mb-3">
+                                <label for="rol">Rol</label>
+                                <input type="number" class="form-control" name="rol" required="true">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="submit">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MOSTRAR -->
+    <section th:fragment="listadoAdmins" id="admins">
+        <div class="listadoAdmins">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Listado de Administradores</h4></div>
+                        <div th:if="${admins != null and !admins.empty}">
+                            <table class="table table-striped table-hover">
+                                <thead class="table-dark">
+                                    <tr><th>#</th>
+                                        <th>Usuario</th>
+                                        <th>Contraseña</th>
+                                        <th>Rol</th>
+                                        <th></th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="admin: ${admins}">
+                                        <td>[[${admin.idAdmin}]]</td>
+                                        <td>[[${admin.usuario}]]</td>
+                                        <td>[[${admin.contrasena}]]</td>
+                                        <td>[[${admin.rol}]]</td>
+                                        <td><a th:href="@{/admin/admin/eliminar/}+${admin.idAdmin}"
+                                               class="btn btn-danger">
+                                                <i class="fas fa-trash"></i> Eliminar</a>
+                                            <a th:href="@{/admin/admin/modificar/}+${admin.idAdmin}"
+                                               class="btn btn-success">
+                                                <i class="fas fa-pencil"></i> Modificar</a></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center p-2" th:if="${admins == null or admins.empty}">
+                            <span>Lista vacía</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- MODIFICAR -->
+    <section th:fragment="editarAdmin">
+
+        <div class="row">
+            <div class="col-md-8">
+                <form method="POST"
+                      th:action="@{/admin/admin/guardar}" th:object="${admin}"
+                      class="was-validated">
+                    <input type="hidden" name="idAdmin" th:field="*{idAdmin}"/>
+                    <div id=details>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Actualizar</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <label for="nombre">Usuario</label>
+                                            <input type="text" class="form-control" 
+                                                   name="usuario" th:field="*{usuario}"
+                                                   required="true">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="contra">Contraseña</label>
+                                            <input type="text" class="form-control" 
+                                                   name="contra" th:field="*{contrasena}"
+                                                   required="true">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="rol">Rol</label>
+                                            <input type="number" class="form-control" 
+                                                   name="rol" th:field="*{rol}"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <section th:replace="~{admin/fragmentos :: botonesEditar}"/>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODIFICAR/BOTON -->
+    <section th:fragment="botonesEditar">
+
+        <div class="row">
+            <div class="col-md-4 d-grid">
+                <a th:href="@{/admin/admin/listado}" class="btn btn-primary">
+                    <i class="fas fa-arrow-left"></i> Regresar
+                </a>
+            </div>
+            <div class="col-md-4 d-grid">                                
+                <a th:href="@{/admin/admin/eliminar/}+${admin.idAdmin}"
+                   class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Eliminar
+                </a>
+            </div>
+            <div class="col-md-4 d-grid">
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-check"></i> Guardar
+                </button>
+            </div>
+        </div>
+
+    </section>
+</body>
+</html>
