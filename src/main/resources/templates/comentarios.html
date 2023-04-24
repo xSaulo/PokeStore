@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/plantilla :: head}"></head>
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"/>
+        <div class="container">
+
+            <div class="col-auto bg-white p-1 text-center">
+                
+            </div>
+            <br>
+            <div th:each="user : ${comentarios}" class="comentario">
+                <div class="a">
+                    <a th:src="${user.getIdUsuario}">
+                </div>
+                
+                    <p class="fecha" th:text="${user.getFechaComentario}"></p>
+                    <p class="titulo" th:text="${user.getTituloComentario}"></p>
+                    <p class="descripcion" th:text="${user.getDescripcionComentario}"></p>
+
+                    <p class="clasificacion">
+                        <span th:if="${user.getCalificacionComentario() == 1}">⭐</span>
+                        <span th:if="${user.getCalificacionComentario() == 2}">⭐⭐</span>
+                        <span th:if="${user.getCalificacionComentario() == 3}">⭐⭐⭐</span>
+                        <span th:if="${user.getCalificacionComentario() == 4}">⭐⭐⭐⭐</span>
+                        <span th:if="${user.getCalificacionComentario() == 5}">⭐⭐⭐⭐⭐</span>
+                    </p>
+                    <a class="fas fa-edit float-right" th:href="@{/editarComentario/{id}(id=${user.IdComentario})}"></a>
+                    <a class="fas fa-trash float-right" th:href="@{/eliminarComentario/{id}(id=${user.IdComentario})}"></a>
+                
+            </div>
+            <a th:text="#{comentarios.boton}" class="btn btn-outline-dark" href="/crearForo" role="button">Agregar Comentario</a>
+        </div>
+
+        <footer th:replace="~{layout/plantilla :: footer}"/>
+    </body>
+</html>

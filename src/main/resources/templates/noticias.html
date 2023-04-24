@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"/>
+        
+        <section id="news-feed" class="container">
+            <div class="news-block">
+                <div class="news-block"></div>
+                <div class="left-block"> 10 de marzo 2023
+                    <article>
+                        <h1 th:text="#{noticias.titulo1}">Compromiso constante por ofrecer una experiencia del mundo real en Pokémon GO</h1>
+                        <p th:text="#{noticias.texto1}">Estimados Entrenadores: Hoy queremos renovar nuestro compromiso con el refuerzo de la experiencia presencial en Pokémon GO. Tenemos pensadas muchas cosas para 2023, pero antes nos gustaría resumir algunas de las últimas novedades y contaros qué está a punto de llegar.</p>
+                        <figure>
+                            <img src="img/Pokemon go.jpg" alt="pokemon go"/>
+                            <figcaption>
+                                The Pokemon Company
+                            </figcaption>
+                        </figure>
+                        <p th:text="#{noticias.texto2}"> Actualizaciones del juego
+                            Las incursiones élite con Pokémon nuevos o únicos, como las incursiones élite de Regidrago de este fin de semana, son uno de los primeros pasos de ese compromiso. Pero también estamos trabajando en lo siguiente:
+
+                            Mejoras en las incursiones que facilitan vuestra participación en las incursiones locales y que os hagáis amigos de los Entrenadores contra los que combatís.
+                            Mejoras en la experiencia del juego en persona con familiares y amigos.
+                            Nuevas funciones que aportan beneficios y facilitan los encuentros con más Pokémon mientras se explora al aire libre.
+                            Campfire
+                            El año pasado, introdujimos Campfire en algunas ciudades de Estados Unidos. El objetivo de Campfire es que los Entrenadores conecten, descubran las comunidades locales y encuentren incursiones activas cerca. Hemos seguido mejorando Campfire con las actualizaciones siguientes centradas en ayudar a los Entrenadores a comunicarse mejor y colaborar para afrontar las incursiones en persona.
+
+                            Hemos añadido la capacidad de iniciar conversaciones en Poképaradas y Gimnasios a vuestro alrededor.
+                            Hemos añadido la capacidad de desplazarse desde Campfire a un Gimnasio concreto de Pokémon GO.
+                            Campfire también tendrá próximamente actualizaciones para mejorar notablemente el modo en que los Entrenadores conectan, chatean y se unen a las incursiones en Pokémon GO. Se trata de un paso esencial en la preparación del despliegue continuo de Campfire y el acceso para Entrenadores de todo el mundo este año.
+
+                            Programa de Embajadores de la Comunidad
+                            Como demostración de nuestro compromiso esencial con la promoción del juego social en el mundo real, seguimos haciendo crecer nuestro programa de Embajadores de la Comunidad. Este programa, disponible en determinadas zonas, fomenta la reunión en persona en las comunidades de Pokémon GO, además de alentar a los Entrenadores a que encuentren nuevas comunidades. Hemos añadido 200 Embajadores de la Comunidad en todo el mundo desde su lanzamiento el pasado mes de agosto, lo que les proporciona herramientas para conectar con sus bases de jugadores locales e incentivos únicos para fomentar el juego local.
+
+                            Esperamos compartir más información acerca del programa durante este año, como nuevas formas de unirse y celebrar el espíritu de la comunidad local.
+
+                            —El equipo de Pokémon GO
+
+                            Prestad siempre atención a vuestro entorno y acatad las normas de las autoridades sanitarias locales al jugar a Pokémon GO. Los próximos eventos estarán sujetos a cambios. No os olvidéis de seguirnos en las redes sociales, activar la recepción de notificaciones push y suscribiros a nuestros correos electrónicos para estar al día.</p>
+                    </article></div>
+                <div class="right-block">6 de marzo 2023
+                    <article>
+                        <h1 th:text="#{noticias.titulo2}">¡Regidrago vuela hasta las incursiones élite!</h1>
+
+                        <img src="img/noticia2.png" alt="" height="300"/>
+
+                    </article>
+                </div>
+            </div>
+        </section>
+        <footer th:replace="~{layout/plantilla :: footer}"/>
+    </body>
+</html>

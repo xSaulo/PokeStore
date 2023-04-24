@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/plantilla :: head}"></head>
+
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"/>
+        <div class="container">
+            <div class="card-body">
+
+                <div>
+                    <h1 th:text="#{comentariosC.titulo}" class="text-center">Comentario Nuevo</h1>
+                    <br>
+
+                    <!-- FORMULARIO -->
+                    <form th:object = "${comentario}"
+                          th:action="@{/guardarComentario}"
+                          method="POST">
+
+                        <input type="hidden" th:field="*{idComentario}">
+
+                        <input type="hidden" name="fecha" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" />
+
+                        <label th:text="#{comentariosC.tituloInput1}" class="col-md-2 col-form-label" for="tituloComentario">Titulo del comentario</label>
+                        <input type="text" class="form-control" th:field="*{tituloComentario}" placeholder="Titulo" required>
+
+                        <label th:text="#{comentariosC.tituloInput2}" class="col-md-2 col-form-label" for="descripcionComentario">Descripcion del comentario</label>
+                        <textarea class="form-control" rows="4" th:field="*{descripcionComentario}" placeholder="Escribir comentario..." required></textarea>
+
+                        <div class="checkboxes">
+
+                            <label>
+                                <input type="radio" name="calificacion" th:field="*{calificacionComentario}" value="1" required>
+                                🌟
+                            </label>
+                            <label>
+                                <input type="radio" name="calificacion" th:field="*{calificacionComentario}" value="2" required >
+                                🌟🌟
+                            </label>
+                            <label>
+                                <input type="radio" name="calificacion" th:field="*{calificacionComentario}" value="3" required>
+                                🌟🌟🌟
+                            </label>
+                            <label>
+                                <input type="radio" name="calificacion" th:field="*{calificacionComentario}" value="4" required>
+                                🌟🌟🌟🌟
+                            </label>
+                            <label>
+                                <input type="radio" name="calificacion" th:field="*{calificacionComentario}" value="5" required>
+                                🌟🌟🌟🌟🌟
+                            </label>
+
+                        </div>
+
+                        <div class="col-auto bg-white p-1 text-center">
+                            <button th:text="#{comentariosC.boton}" type="submit" class="btn btn-success" value="Guardar">Publicar Foro</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="~{layout/plantilla :: footer}"/>
+
+</body>
+</html>
