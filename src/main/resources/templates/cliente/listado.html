@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmnls="http://w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+    <head th:replace="~{layout/plantillaAdmin :: head}">
+        <title>Listado Clientes</title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+
+        <header th:replace="~{layout/plantillaAdmin :: header}"/>
+        <section th:replace="~{cliente/fragmentos :: agregarCliente}"/>    
+        <section th:replace="~{cliente/fragmentos :: listadoClientes}"/> 
+        <footer th:replace="~{layout/plantillaAdmin :: footer}"/>
+
+    </body>
+</html>
